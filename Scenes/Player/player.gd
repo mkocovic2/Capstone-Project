@@ -68,6 +68,10 @@ func _ready():
 	sword_area.monitoring = false
 	sword_area.monitorable = false
 
+	if sword_area:
+		sword_area.collision_mask = 3
+		sword_area.collision_layer = 0
+
 	if not animation_player:
 		push_warning("AnimationPlayer not assigned!")
 	

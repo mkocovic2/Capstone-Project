@@ -271,7 +271,6 @@ shape = SubResource("CapsuleShape3D_l3ax4")
 
 [node name="ShaderApp" type="MeshInstance3D" parent="PlayerBody"]
 transform = Transform3D(-6.5099655e-08, -0.9995346, -0.056431558, 1.4899999, -4.3711385e-08, -3.9175264e-22, -1.9866948e-09, -0.030503547, 1.8491391, 0.0990293, -0.004663229, -0.39894187)
-visible = false
 material_override = SubResource("ShaderMaterial_h54ih")
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_ude3g")
