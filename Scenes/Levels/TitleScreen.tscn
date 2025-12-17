@@ -1,0 +1,117 @@
+[gd_scene load_steps=5 format=3 uid="uid://2u7ghi20ljh"]
+
+[ext_resource type="FontFile" uid="uid://cpdb4qc1lidb2" path="res://Assets/Fonts/BreatheFireIi-2z9W.ttf" id="1_1j3pg"]
+[ext_resource type="Texture2D" uid="uid://dgs33vubkohn6" path="res://Assets/Textures/a(1).png" id="1_4kc87"]
+[ext_resource type="AudioStream" uid="uid://kr0sfelw3ucj" path="res://Assets/Audio/Music/HOME.mp3" id="2_4kc87"]
+
+[sub_resource type="GDScript" id="GDScript_4kc87"]
+script/source = "extends Control
+
+@onready var audio_player = $\"../AudioStreamPlayer2D\"
+
+func _on_start_pressed() -> void:
+	audio_player.stream = load(\"res://Assets/Audio/Sounds/titlesay.mp3\")
+	if not audio_player.is_connected(\"finished\", Callable(self, \"_on_audio_finished\")):
+		audio_player.connect(\"finished\", Callable(self, \"_on_audio_finished\"))
+	audio_player.play()
+
+func _on_audio_finished() -> void:
+	if audio_player.stream == load(\"res://Assets/Audio/Sounds/titlesay.mp3\"):
+		get_tree().change_scene_to_file(\"res://Scenes/Levels/arena.tscn\")
+	elif audio_player.stream == load(\"res://Assets/Audio/Sounds/bye.mp3\"):
+		get_tree().quit()
+		
+func _on_tutorial_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/Levels/tutorial.tscn\")
+
+func _on_quit_pressed() -> void:
+	audio_player.stream = load(\"res://Assets/Audio/Sounds/bye.mp3\")
+	if not audio_player.is_connected(\"finished\", Callable(self, \"_on_audio_finished\")):
+		audio_player.connect(\"finished\", Callable(self, \"_on_audio_finished\"))
+	audio_player.play()
+"
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchor_left = -0.05
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 57.600002
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -65.0
+offset_top = -35.0
+offset_right = 1278.5675
+offset_bottom = 682.0
+texture = ExtResource("1_4kc87")
+expand_mode = 1
+
+[node name="Collection" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 74.0
+offset_top = 176.0
+offset_right = 1109.0
+offset_bottom = 482.0
+script = SubResource("GDScript_4kc87")
+
+[node name="Title Text" type="Label" parent="Collection"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 327.0
+offset_top = 50.0
+offset_right = 692.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.7411765, 0.6156863, 0.39607844, 1)
+theme_override_fonts/font = ExtResource("1_1j3pg")
+theme_override_font_sizes/font_size = 74
+text = "CUBE OF IRON"
+
+[node name="Start" type="Button" parent="Collection"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 434.0
+offset_top = 139.0
+offset_right = 571.0
+offset_bottom = 202.0
+theme_override_fonts/font = ExtResource("1_1j3pg")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+flat = true
+
+[node name="Tutorial" type="Button" parent="Collection"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 435.0
+offset_top = 196.0
+offset_right = 572.0
+offset_bottom = 259.0
+theme_override_fonts/font = ExtResource("1_1j3pg")
+theme_override_font_sizes/font_size = 40
+text = "Tutorial"
+flat = true
+
+[node name="Quit" type="Button" parent="Collection"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 433.0
+offset_top = 255.0
+offset_right = 570.0
+offset_bottom = 318.0
+theme_override_fonts/font = ExtResource("1_1j3pg")
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+flat = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_4kc87")
+autoplay = true
+
+[connection signal="button_down" from="Collection/Start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="Collection/Start" to="Collection/Start" method="_on_start_down"]
+[connection signal="pressed" from="Collection/Start" to="Collection" method="_on_start_pressed"]
+[connection signal="pressed" from="Collection/Tutorial" to="Collection" method="_on_tutorial_pressed"]
+[connection signal="pressed" from="Collection/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Collection/Quit" to="Collection" method="_on_quit_pressed"]

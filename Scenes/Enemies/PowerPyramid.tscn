@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://buj2a5864pqge"]
+
+[ext_resource type="Script" uid="uid://de88pgl5yqxk1" path="res://Scenes/Enemies/power_pyramid.gd" id="1_uo8ap"]
+[ext_resource type="PackedScene" uid="uid://cpr0v6jofvkgq" path="res://Scenes/Enemies/fireball_triangle.tscn" id="2_5s3s1"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_y7awh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uo8ap"]
+
+[node name="PowerPyramid" type="CharacterBody3D"]
+script = ExtResource("1_uo8ap")
+fireball_scene = ExtResource("2_5s3s1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PrismMesh_y7awh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_uo8ap")

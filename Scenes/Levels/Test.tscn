@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://b14x5vphwrhp7"]
+
+[ext_resource type="PackedScene" uid="uid://erbrunbvi7uj" path="res://Scenes/Enemies/cubert.tscn" id="1_4hhc0"]
+[ext_resource type="PackedScene" uid="uid://buj2a5864pqge" path="res://Scenes/Enemies/PowerPyramid.tscn" id="2_iwbsa"]
+[ext_resource type="Shader" uid="uid://bhtqchs0wal5j" path="res://Assets/Shaders/Camera/dith.gdshader" id="3_pdb2y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrtxw"]
+render_priority = 0
+shader = ExtResource("3_pdb2y")
+shader_parameter/level1 = Color(0, 0, 0, 1)
+shader_parameter/level2 = Color(0.5620884, 0.49394268, 0.35589465, 1)
+shader_parameter/level3 = Color(1, 1, 1, 1)
+shader_parameter/level4 = Color(1, 1, 1, 1)
+shader_parameter/threshold1 = 0.1
+shader_parameter/threshold2 = 0.4
+shader_parameter/threshold3 = 0.6
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iwbsa"]
+material = SubResource("ShaderMaterial_jrtxw")
+custom_aabb = AABB(0, 0, 0, 0, 0, 0.025)
+
+[node name="Test" type="Node3D"]
+
+[node name="Test Shader" parent="." instance=ExtResource("1_4hhc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18154144, 0, 1.2841587)
+
+[node name="PowerPyramid" parent="." instance=ExtResource("2_iwbsa")]
+transform = Transform3D(0.37, 0, 0, 0, 0.37, 0, 0, 0, 0.37, -0.15880919, 0.057070315, -0.18255424)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.109769, 0, 0.9939571, 0, 1, 0, -0.9939571, 0, -0.109769, 3.2162478, 0, 0.15245199)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.97626954, 0.09804281, 0.19309418, -0.21655887, 0.44198695, 0.8704882, 0, -0.8916474, 0.45273045, 2.6002288, 2.1491318, 2.8076415)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(4.371139e-08, 1, -8.742278e-08, 1, -4.371139e-08, 0, -3.821371e-15, -8.742278e-08, -1, 1.9075623, 0, 0)
+visible = false
+mesh = SubResource("PlaneMesh_iwbsa")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr7df1g71u70d"]
+
+[ext_resource type="PackedScene" uid="uid://o2eailk3lojv" path="res://Assets/Models/Leather_Glove_Raised_1213210133_generate.fbx" id="1_2pbvk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3767"]
+albedo_color = Color(0.3328807, 0.33288068, 0.33288068, 1)
+
+[node name="Leather_Glove_Raised_1213210133_generate" instance=ExtResource("1_2pbvk")]
+
+[node name="Mesh1_0" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_x3767")

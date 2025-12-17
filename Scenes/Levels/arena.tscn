@@ -1,0 +1,125 @@
+[gd_scene load_steps=12 format=3 uid="uid://bshpm38uj3ae2"]
+
+[ext_resource type="Texture2D" uid="uid://ble7f5uy3dyao" path="res://Assets/Textures/Map Test/texture_01.png" id="1_jws41"]
+[ext_resource type="Texture2D" uid="uid://dfsj6gy1snjbj" path="res://Assets/Textures/Map Test/texture_orange.png" id="2_gcjo0"]
+[ext_resource type="PackedScene" uid="uid://dmm8dxuiydl7q" path="res://Scenes/Player/Player.tscn" id="4_w8qsr"]
+[ext_resource type="PackedScene" uid="uid://c18i0rp3jasqn" path="res://Scenes/Enemies/spawner.tscn" id="5_7fubs"]
+[ext_resource type="AudioStream" uid="uid://twkirn3r5yp6" path="res://Assets/Audio/Music/BATTLE.mp3" id="5_54ufs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gcjo0"]
+albedo_texture = ExtResource("1_jws41")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbwlw"]
+albedo_texture = ExtResource("1_jws41")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8qsr"]
+albedo_texture = ExtResource("1_jws41")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_54ufs"]
+albedo_texture = ExtResource("2_gcjo0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7fubs"]
+albedo_texture = ExtResource("1_jws41")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06psl"]
+albedo_texture = ExtResource("1_jws41")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[node name="Arena" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(2.865, 0, 0, 0, 2.865, 0, 0, 0, 2.865, 0, 0, 0)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 4.5, 3.5)
+size = Vector3(45, 10, 24)
+material = SubResource("StandardMaterial3D_gcjo0")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.9997204, -0.023647008, 0, 0.023647008, 0.9997204, -7, 4.5, 3.5)
+operation = 2
+size = Vector3(41, 8, 20)
+material = SubResource("StandardMaterial3D_gcjo0")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.49247503, -2.8649)
+polygon = PackedVector2Array(-21, 0, -22, 0, -19, 1, 0, 1, 1, 1, 4, 0)
+depth = 3.69
+material = SubResource("StandardMaterial3D_bbwlw")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.99997693, -0.0067892787, 0, 0.0067892787, 0.99997693, 2, 0.27159882, 13.521633)
+polygon = PackedVector2Array(-21, 0, -22, 0, -19, 1, 0, 1, 1, 1, 4, 0)
+depth = 3.69
+material = SubResource("StandardMaterial3D_w8qsr")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.99989957, -0.0141716, 0, 0.0141716, 0.99989957, 0, 0, 0, 1, -6.0000005, 4.376339, 3.0000002)
+material_override = SubResource("StandardMaterial3D_54ufs")
+radius = 2.238
+height = 8.75
+material = SubResource("StandardMaterial3D_7fubs")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0000005, 3.1049454, 3.0000002)
+radius = 5.0
+height = 0.624
+material = SubResource("StandardMaterial3D_06psl")
+
+[node name="Player" parent="." instance=ExtResource("4_w8qsr")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -65.24394, 3.3787868, -1.1216195)
+forward_speed = 15.0
+jump_velocity = 14.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.793674, 12.125408, 8.56841)
+light_energy = 0.838
+light_size = 20.55
+light_cull_mask = 4294967293
+shadow_enabled = true
+omni_range = 167.22
+omni_attenuation = -0.313
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.61396, 12.125408, 8.56841)
+light_energy = 0.838
+light_size = 20.55
+light_cull_mask = 4294967293
+shadow_enabled = true
+omni_range = 167.22
+omni_attenuation = -0.313
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_54ufs")
+attenuation_model = 3
+autoplay = true
+
+[node name="Spawner" parent="." instance=ExtResource("5_7fubs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.600054, 5.4486456, 30.861881)
+spawn_radius = 5.0
+spawn_height_max = 10.0
+
+[node name="Spawner2" parent="." instance=ExtResource("5_7fubs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.600054, 5.4486456, -4.1802053)
+spawn_radius = 5.0
+spawn_height_max = 10.0
+
+[node name="Spawner3" parent="." instance=ExtResource("5_7fubs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.33758, 5.4486456, -4.1802053)
+spawn_radius = 5.0
+spawn_height_max = 10.0
+
+[node name="Spawner4" parent="." instance=ExtResource("5_7fubs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.33758, 5.4486456, 31.383293)
+spawn_radius = 5.0
+spawn_height_max = 10.0

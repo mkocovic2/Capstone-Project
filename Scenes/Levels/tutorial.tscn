@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwww4bgix2ne8"]
+
+[ext_resource type="Texture2D" uid="uid://dgs33vubkohn6" path="res://Assets/Textures/a(1).png" id="1_l7elp"]
+[ext_resource type="FontFile" uid="uid://cpdb4qc1lidb2" path="res://Assets/Fonts/BreatheFireIi-2z9W.ttf" id="2_fenkg"]
+[ext_resource type="AudioStream" uid="uid://kr0sfelw3ucj" path="res://Assets/Audio/Music/HOME.mp3" id="3_302wg"]
+
+[sub_resource type="GDScript" id="GDScript_4kc87"]
+script/source = "extends Control
+
+@onready var audio_player = $\"../AudioStreamPlayer2D\"
+var next_action: String = \"\"  # \"start_game\", \"quit\"
+
+func _on_start_pressed() -> void:
+	audio_player.stream = load(\"res://Assets/Audio/Sounds/titlesay.mp3\")
+	next_action = \"start_game\"
+	if not audio_player.is_connected(\"finished\", Callable(self, \"_on_audio_finished\")):
+		audio_player.connect(\"finished\", Callable(self, \"_on_audio_finished\"))
+	audio_player.play()
+
+func _on_audio_finished() -> void:
+	if next_action == \"start_game\":
+		get_tree().change_scene_to_file(\"res://Scenes/Levels/arena.tscn\")
+	elif next_action == \"quit\":
+		get_tree().quit()
+	next_action = \"\"  # reset
+
+func _on_tutorial_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/Levels/tutorial.tscn\")
+
+func _on_quit_pressed() -> void:
+	audio_player.stream = load(\"res://Assets/Audio/Sounds/bye.mp3\")
+	next_action = \"quit\"
+	if not audio_player.is_connected(\"finished\", Callable(self, \"_on_audio_finished\")):
+		audio_player.connect(\"finished\", Callable(self, \"_on_audio_finished\"))
+	audio_player.play()
+
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/Levels/TitleScreen.tscn\")
+"
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchor_left = -0.05
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 57.600002
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -2442.0
+offset_top = -1460.0
+offset_right = 3934.0
+offset_bottom = 1957.0
+texture = ExtResource("1_l7elp")
+expand_mode = 1
+
+[node name="Collection" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 74.0
+offset_top = 176.0
+offset_right = 1109.0
+offset_bottom = 482.0
+script = SubResource("GDScript_4kc87")
+
+[node name="Controls" type="Label" parent="Collection"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -37.0
+offset_top = -141.0
+offset_right = 328.0
+offset_bottom = -63.0
+theme_override_colors/font_color = Color(0.7411765, 0.6156863, 0.39607844, 1)
+theme_override_fonts/font = ExtResource("2_fenkg")
+theme_override_font_sizes/font_size = 74
+text = "Controls"
+
+[node name="Controls" type="Label" parent="Collection/Controls"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 6.0
+offset_top = 105.0
+offset_right = 934.0
+offset_bottom = 562.0
+theme_override_colors/font_color = Color(0.7411765, 0.6156863, 0.39607844, 1)
+theme_override_fonts/font = ExtResource("2_fenkg")
+theme_override_font_sizes/font_size = 40
+text = "LEFT CLICK: SWING SWORD
+RIGHT CLICK: SHOOT FIREBALL
+MIddle mouse click: Switch directions
+left shift: dash to avoid enemies
+
+Main enemy: cuBERT, CHASES YOU LIKE A PROJECTILE. 
+can be cut in half or destroyed by fire!
+
+Goal: survive, the longer you last, the more cuberts shall
+appear in this cube of iron. watch out for the corners!"
+
+[node name="Back" type="Button" parent="Collection"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 864.0
+offset_top = -117.0
+offset_right = 1001.0
+offset_bottom = -54.0
+theme_override_fonts/font = ExtResource("2_fenkg")
+theme_override_font_sizes/font_size = 40
+text = "BACK"
+flat = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_302wg")
+autoplay = true
+
+[connection signal="pressed" from="Collection/Back" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Collection/Back" to="Collection" method="_on_back_pressed"]
+[connection signal="pressed" from="Collection/Back" to="Collection" method="_on_quit_pressed"]

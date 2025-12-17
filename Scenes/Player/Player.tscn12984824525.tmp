@@ -1,0 +1,194 @@
+[gd_scene load_steps=16 format=3 uid="uid://dmm8dxuiydl7q"]
+
+[ext_resource type="Script" uid="uid://c3bige4frqvge" path="res://Scenes/Player/player.gd" id="1_s0eop"]
+[ext_resource type="Shader" uid="uid://bhtqchs0wal5j" path="res://Assets/Shaders/Camera/dith.gdshader" id="2_ft8w5"]
+[ext_resource type="PackedScene" uid="uid://dr7df1g71u70d" path="res://Assets/Models/leather_glove_raised_1213210133_generate.tscn" id="2_ude3g"]
+[ext_resource type="PackedScene" uid="uid://r1mwssuiox78" path="res://Assets/Models/Colossal_Blade_1213003617_texture.fbx" id="3_h54ih"]
+[ext_resource type="Script" uid="uid://fnbiqeq7u8jc" path="res://Assets/Models/hand.gd" id="3_jmcll"]
+[ext_resource type="Script" uid="uid://ch1v6wc3urvpm" path="res://Assets/Models/sword.gd" id="5_4wape"]
+
+[sub_resource type="Animation" id="Animation_ude3g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.3715024, 0.15370941, -1.7501342)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.21816616, -1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h54ih"]
+resource_name = "swing"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.51, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(2.112, 0.154, -1.75), Vector3(3.6868548, -2.3489, -1.7501342), Vector3(-4.238, 2.777, -1.636)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.51, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.21816616, -1.5707964, 0), Vector3(-1.0471975, 0.9696351, -2.146755), Vector3(-1.0995574, 0.6457718, -0.28972465)]
+}
+
+[sub_resource type="Animation" id="Animation_jmcll"]
+resource_name = "swing_2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.112, 0.154, -1.75)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.21816616, -1.5707964, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jmcll"]
+_data = {
+&"RESET": SubResource("Animation_ude3g"),
+&"swing": SubResource("Animation_h54ih"),
+&"swing_2": SubResource("Animation_jmcll")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h54ih"]
+render_priority = 0
+shader = ExtResource("2_ft8w5")
+shader_parameter/level1 = Color(0, 0, 0, 1)
+shader_parameter/level2 = Color(0.6419589, 0.5455272, 0.42046705, 1)
+shader_parameter/level3 = Color(1, 1, 1, 1)
+shader_parameter/level4 = Color(1, 1, 1, 1)
+shader_parameter/threshold1 = 0.1
+shader_parameter/threshold2 = 0.4
+shader_parameter/threshold3 = 0.6
+
+[sub_resource type="QuadMesh" id="QuadMesh_ude3g"]
+lightmap_size_hint = Vector2i(12, 12)
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l3ax4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ude3g"]
+render_priority = 0
+shader = ExtResource("2_ft8w5")
+shader_parameter/level1 = Color(0, 0, 0, 1)
+shader_parameter/level2 = Color(0.5620884, 0.49394268, 0.35589465, 1)
+shader_parameter/level3 = Color(1, 1, 1, 1)
+shader_parameter/level4 = Color(1, 1, 1, 1)
+shader_parameter/threshold1 = 0.1
+shader_parameter/threshold2 = 0.4
+shader_parameter/threshold3 = 0.6
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h54ih"]
+material = SubResource("ShaderMaterial_ude3g")
+custom_aabb = AABB(0, 0, 0, 0, 0, 0.025)
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_s0eop")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31784344, -0.13801539)
+
+[node name="Leather_Glove_Raised_1213210133_generate2" parent="Camera3D" instance=ExtResource("2_ude3g")]
+transform = Transform3D(0.011757185, 0.04670442, -0.12933272, -0.14331724, -0.00834228, -0.018773489, 0.018626057, -0.09367015, -0.062814, -0.27838194, -0.20335877, -0.24254918)
+script = ExtResource("3_jmcll")
+idle_amount = null
+idle_speed = null
+sway_amount = null
+sway_smoothness = null
+max_sway = null
+walk_amount = null
+walk_speed = null
+walk_bob_vertical = null
+tilt_amount = null
+
+[node name="Colossal_Blade_1213003617_texture" parent="Camera3D" instance=ExtResource("3_h54ih")]
+transform = Transform3D(-1.3113416e-07, 0.64931864, -2.9288883, 0, 2.9288871, 0.64931893, 2.9999998, 2.838262e-08, -1.2802577e-07, 1.3715024, 0.15370941, -1.7501342)
+script = ExtResource("5_4wape")
+idle_amount = null
+idle_speed = null
+sway_amount = null
+sway_smoothness = null
+max_sway = null
+walk_amount = null
+walk_speed = null
+walk_bob_vertical = null
+tilt_amount = null
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Camera3D/Colossal_Blade_1213003617_texture"]
+transform = Transform3D(1.4570464e-08, 0.3333334, -2.9140931e-08, 0.32543203, -7.9178335e-09, 0.072146535, 0.072146535, -3.16038e-08, -0.32543203, 0.0029871464, -0.08452478, 0.29362452)
+layers = 2
+omni_attenuation = 0.743
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D/Colossal_Blade_1213003617_texture"]
+libraries = {
+&"": SubResource("AnimationLibrary_jmcll")
+}
+speed_scale = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(-6.5099655e-08, -0.9995346, -0.056431558, 1.4899999, -4.3711385e-08, -3.9175264e-22, -1.9866948e-09, -0.030503547, 1.8491391, 0.0990293, -0.32250667, -0.26092646)
+material_override = SubResource("ShaderMaterial_h54ih")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_ude3g")
+skeleton = NodePath("../../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_l3ax4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(2.846922e-15, 4.371139e-08, 1.85, 1.49, -4.371139e-08, -7.835055e-22, 6.512997e-08, 1, -8.0866066e-08, 0.0990293, -0.32250667, -0.26092646)
+extra_cull_margin = 16384.0
+mesh = SubResource("PlaneMesh_h54ih")
+skeleton = NodePath("../../CollisionShape3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.846922e-15, 4.371139e-08, 1.85, 1.49, -4.371139e-08, -7.835055e-22, 6.512997e-08, 1, -8.0866066e-08, 0.0990293, -0.32250667, -0.26092646)
+extra_cull_margin = 16384.0
+mesh = SubResource("PlaneMesh_h54ih")
+skeleton = NodePath("../../CollisionShape3D")
